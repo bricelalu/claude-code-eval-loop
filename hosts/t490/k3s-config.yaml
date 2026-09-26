@@ -1,0 +1,13 @@
+# Installed to /etc/rancher/k3s/config.yaml on the T490.
+disable:
+  - servicelb # ADR 0002: nothing binds to the LAN
+  - traefik   # apache2 owns :80; services are exposed through the Tailscale operator
+tls-san:
+  - bla-thinkpad-t490
+  - 100.95.91.56
+kubelet-arg:
+  # The root fs is ~83% full. The default percentage thresholds (nodefs<10%, imagefs<15%) would put the node into DiskPressure.
+  - eviction-hard=nodefs.available<1Gi,imagefs.available<1Gi,memory.available<200Mi
+  # Image GC starts at 85% by default and would keep deleting images on this disk.
+  - image-gc-high-threshold=95
+  - image-gc-low-threshold=90
