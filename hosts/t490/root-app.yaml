@@ -1,0 +1,22 @@
+# Root Application (app-of-apps). Applied once by bootstrap.sh; from then on it
+# syncs every Application manifest in clusters/t490/ from this repo.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bricelalu/claude-code-eval-loop
+    path: clusters/t490
+    targetRevision: HEAD
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
