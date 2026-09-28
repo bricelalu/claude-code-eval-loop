@@ -1,1 +1,4 @@
-fullnameOverride: sealed-secrets-controller
+# Values for the sealed-secrets dependency chart (nested under the dependency
+# name, per Helm wrapper-chart convention).
+sealed-secrets:
+  fullnameOverride: sealed-secrets-controller
