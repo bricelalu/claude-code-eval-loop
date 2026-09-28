@@ -5,6 +5,9 @@ disable:
 tls-san:
   - bla-thinkpad-t490
   - 100.95.91.56
+kube-proxy-arg:
+  # ADR 0002: NodePorts answer only on the tailnet IP, never on the LAN.
+  - nodeport-addresses=100.95.91.56/32
 kubelet-arg:
   # The root fs is ~83% full. The default percentage thresholds (nodefs<10%, imagefs<15%) would put the node into DiskPressure.
   - eviction-hard=nodefs.available<1Gi,imagefs.available<1Gi,memory.available<200Mi
